@@ -1,19 +1,31 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import org.json.JSONObject;
+import javax.swing.JOptionPane;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
-/**
- *
- * @author LENOVO X ClickBytech
- */
 public class CekCuacaForm extends javax.swing.JFrame {
+    
 
     /**
      * Creates new form CekCuacaForm
      */
     public CekCuacaForm() {
         initComponents();
+        
+        java.net.URL imgURL = getClass().getResource("/img/default.png");
+        if (imgURL != null) {
+            ImageIcon icon = new ImageIcon(imgURL);
+            Image img = icon.getImage().getScaledInstance(
+                LblIcon.getWidth(),
+                LblIcon.getHeight(),
+                Image.SCALE_SMOOTH);
+        LblIcon.setIcon(new ImageIcon(img));
+    }
     }
 
     /**
@@ -25,25 +37,146 @@ public class CekCuacaForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        LblJudul = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        LblKota = new javax.swing.JLabel();
+        TxtKota = new javax.swing.JTextField();
+        BtnCuaca = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        LblIcon = new javax.swing.JLabel();
+        LblKondisi = new javax.swing.JLabel();
+        LblCuaca = new javax.swing.JLabel();
+        LblSuhu = new javax.swing.JLabel();
+        LblHasilSuhu = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        LblKotaFavorit = new javax.swing.JLabel();
+        CBKota = new javax.swing.JComboBox<>();
+        BtnTambah = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("Aplikasi Cek Cuaca Sederhana");
+        LblJudul.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        LblJudul.setText("Aplikasi Cek Cuaca Sederhana");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        LblKota.setText("Masukan Kota :");
+
+        BtnCuaca.setText("Cek Cuaca");
+        BtnCuaca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCuacaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(LblKota)
+                .addGap(18, 18, 18)
+                .addComponent(TxtKota, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(BtnCuaca, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 249, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LblKota)
+                    .addComponent(TxtKota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnCuaca))
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        LblIcon.setPreferredSize(new java.awt.Dimension(120, 120));
+
+        LblKondisi.setText("Kondisi Cuaca :");
+
+        LblSuhu.setText("Suhu :");
+
+        LblHasilSuhu.setText("0");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(LblSuhu)
+                    .addComponent(LblKondisi))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LblCuaca)
+                    .addComponent(LblHasilSuhu))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(LblIcon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(129, 129, 129))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(LblIcon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LblKondisi)
+                    .addComponent(LblCuaca))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LblSuhu)
+                    .addComponent(LblHasilSuhu))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        LblKotaFavorit.setText("Kota Favorit :");
+
+        CBKota.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                CBKotaItemStateChanged(evt);
+            }
+        });
+
+        BtnTambah.setText("Tambah");
+        BtnTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnTambahActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(LblKotaFavorit)
+                .addGap(31, 31, 31)
+                .addComponent(CBKota, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(BtnTambah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LblKotaFavorit)
+                    .addComponent(CBKota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnTambah))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -54,23 +187,156 @@ public class CekCuacaForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 134, Short.MAX_VALUE)))
+                        .addComponent(LblJudul)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(LblJudul)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BtnCuacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCuacaActionPerformed
+        // TODO add your handling code here:
+    try {
+        String kota = TxtKota.getText().trim();
+
+        if (kota.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Masukkan nama kota terlebih dahulu!");
+            return;
+        }
+
+        String apiKey = "ae692a031f1d7d5ae47224e62492930f";
+        String urlStr = "https://api.openweathermap.org/data/2.5/weather?q=" 
+                        + URLEncoder.encode(kota, "UTF-8") 
+                        + "&units=metric&appid=" + apiKey;
+
+        // Buka koneksi
+        URL url = new URL(urlStr);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+
+        int responseCode = conn.getResponseCode();
+
+        if (responseCode == 200) {
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(conn.getInputStream()));
+            StringBuilder response = new StringBuilder();
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+            reader.close();
+
+            // Parsing JSON
+            JSONObject json = new JSONObject(response.toString());
+            JSONObject main = json.getJSONObject("main");
+            double suhu = main.getDouble("temp");
+
+            String kondisi = json.getJSONArray("weather")
+                                .getJSONObject(0)
+                                .getString("main");
+
+            // Tampilkan hasil
+            LblHasilSuhu.setText(suhu + " °C");
+            LblCuaca.setText(kondisi);
+
+            // Atur icon sesuai kondisi
+            String iconPath;
+            if (kondisi.equalsIgnoreCase("Clear")) {
+                iconPath = "/IMG/Cerah.png";
+            } else if (kondisi.equalsIgnoreCase("Clouds")) {
+                iconPath = "/IMG/Berawan.png";
+            } else if (kondisi.equalsIgnoreCase("Rain")) {
+                iconPath = "/IMG/Hujan.png";
+            } else if (kondisi.equalsIgnoreCase("Mist") || kondisi.equalsIgnoreCase("Haze")) {
+                iconPath = "/IMG/Mendung.png";
+            } else {
+                iconPath = "/IMG/default.png";
+            }
+
+            java.net.URL imgURL = getClass().getResource(iconPath);
+            if (imgURL != null) {
+            ImageIcon icon = new ImageIcon(imgURL);
+            // Sesuaikan ukuran dengan label
+            Image img = icon.getImage().getScaledInstance(
+                LblIcon.getWidth(),
+                LblIcon.getHeight(),
+                Image.SCALE_SMOOTH);
+             LblIcon.setIcon(new ImageIcon(img));
+        } else {
+            LblIcon.setIcon(null);
+}
+
+        } else {
+            // Tampilkan pesan error jika bukan 200
+            BufferedReader err = new BufferedReader(
+                    new InputStreamReader(conn.getErrorStream()));
+            StringBuilder errorResponse = new StringBuilder();
+            String line;
+            while ((line = err.readLine()) != null) {
+                errorResponse.append(line);
+            }
+            err.close();
+            JOptionPane.showMessageDialog(this, 
+                "HTTP " + responseCode + " Error:\n" + errorResponse.toString());
+        }
+
+        conn.disconnect();
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage());
+    }
+    }//GEN-LAST:event_BtnCuacaActionPerformed
+
+    private void BtnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTambahActionPerformed
+        // TODO add your handling code here:
+            String kota = TxtKota.getText().trim();
+    if (kota.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Masukkan nama kota terlebih dahulu!");
+    } else {
+        boolean sudahAda = false;
+
+        // Periksa apakah kota sudah ada di daftar favorit
+        for (int i = 0; i < CBKota.getItemCount(); i++) {
+            if (CBKota.getItemAt(i).equalsIgnoreCase(kota)) {
+                sudahAda = true;
+                break;
+            }
+        }
+
+        if (!sudahAda) {
+            CBKota.addItem(kota);
+            JOptionPane.showMessageDialog(this, "Kota " + kota + " ditambahkan ke favorit!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Kota ini sudah ada di daftar favorit!");
+        }
+    }
+    }//GEN-LAST:event_BtnTambahActionPerformed
+
+    private void CBKotaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBKotaItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+        String kotaDipilih = CBKota.getSelectedItem().toString();
+        TxtKota.setText(kotaDipilih);
+    }
+    }//GEN-LAST:event_CBKotaItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -108,7 +374,20 @@ public class CekCuacaForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton BtnCuaca;
+    private javax.swing.JButton BtnTambah;
+    private javax.swing.JComboBox<String> CBKota;
+    private javax.swing.JLabel LblCuaca;
+    private javax.swing.JLabel LblHasilSuhu;
+    private javax.swing.JLabel LblIcon;
+    private javax.swing.JLabel LblJudul;
+    private javax.swing.JLabel LblKondisi;
+    private javax.swing.JLabel LblKota;
+    private javax.swing.JLabel LblKotaFavorit;
+    private javax.swing.JLabel LblSuhu;
+    private javax.swing.JTextField TxtKota;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }
